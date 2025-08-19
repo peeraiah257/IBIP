@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart To-Do</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-tasks"></i>
+                <span>Smart To-Do</span>
+            </div>
+        </div>
+        
+        <ul class="nav-links">
+            <li class="nav-item active">
+                <a href="#" data-page="dashboard">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" data-page="my-tasks">
+                    <i class="fas fa-list-check"></i>
+                    <span>My Tasks</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" data-page="add-task">
+                    <i class="fas fa-plus"></i>
+                    <span>Add Task</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" data-page="categories">
+                    <i class="fas fa-tags"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" data-page="account">
+                    <i class="fas fa-user"></i>
+                    <span>Account Info</span>
+                </a>
+            </li>
+        </ul>
+        
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/40" alt="User" class="profile-img">
+                <div class="user-info">
+                    <span class="username">John Doe</span>
+                    <span class="user-role">User</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page active">
+            <header class="page-header">
+                <h1>Dashboard</h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="showPage('add-task')">
+                        <i class="fas fa-plus"></i>
+                        Add Task
+                    </button>
+                </div>
+            </header>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-tasks">0</h3>
+                        <p>Total Tasks</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon completed">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="completed-tasks">0</h3>
+                        <p>Completed</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pending-tasks">0</h3>
+                        <p>Pending</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon high-priority">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="high-priority-tasks">0</h3>
+                        <p>High Priority</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-tasks">
+                <h2>Recent Tasks</h2>
+                <div class="task-list" id="recent-task-list">
+                    <!-- Recent tasks will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- My Tasks Page -->
+        <div id="my-tasks" class="page">
+            <header class="page-header">
+                <h1>My Tasks</h1>
+                <div class="task-filters">
+                    <select id="priority-filter">
+                        <option value="">All Priorities</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <select id="status-filter">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="task-list" id="all-tasks-list">
+                <!-- All tasks will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Add Task Page -->
+        <div id="add-task" class="page">
+            <header class="page-header">
+                <h1>Add New Task</h1>
+            </header>
+
+            <form class="task-form" id="task-form">
+                <div class="form-group">
+                    <label for="task-title">Task Title</label>
+                    <input type="text" id="task-title" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="task-description">Description</label>
+                    <textarea id="task-description" name="description" rows="4"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-priority">Priority</label>
+                        <select id="task-priority" name="priority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-category">Category</label>
+                        <select id="task-category" name="category">
+                            <option value="work">Work</option>
+                            <option value="personal">Personal</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="health">Health</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="task-deadline">Deadline</label>
+                    <input type="date" id="task-deadline" name="deadline">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="showPage('dashboard')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Categories Page -->
+        <div id="categories" class="page">
+            <header class="page-header">
+                <h1>Task Categories</h1>
+            </header>
+
+            <div class="categories-grid">
+                <div class="category-card" data-category="work">
+                    <div class="category-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Work</h3>
+                    <p class="task-count">0 tasks</p>
+                </div>
+                <div class="category-card" data-category="personal">
+                    <div class="category-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Personal</h3>
+                    <p class="task-count">0 tasks</p>
+                </div>
+                <div class="category-card" data-category="shopping">
+                    <div class="category-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Shopping</h3>
+                    <p class="task-count">0 tasks</p>
+                </div>
+                <div class="category-card" data-category="health">
+                    <div class="category-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Health</h3>
+                    <p class="task-count">0 tasks</p>
+                </div>
+                <div class="category-card" data-category="other">
+                    <div class="category-icon">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <h3>Other</h3>
+                    <p class="task-count">0 tasks</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Info Page -->
+        <div id="account" class="page">
+            <header class="page-header">
+                <h1>Account Information</h1>
+            </header>
+
+            <div class="account-info">
+                <div class="profile-section">
+                    <img src="https://via.placeholder.com/100" alt="Profile" class="profile-picture">
+                    <h2>John Doe</h2>
+                    <p>johndoe@example.com</p>
+                </div>
+
+                <form class="account-form">
+                    <div class="form-group">
+                        <label for="account-name">Full Name</label>
+                        <input type="text" id="account-name" value="John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="account-email">Email</label>
+                        <input type="email" id="account-email" value="johndoe@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="account-phone">Phone</label>
+                        <input type="tel" id="account-phone" value="+1 234 567 8900">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Task Edit Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Task</h2>
+                <button class="close-modal" onclick="closeEditModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="edit-task-form" class="task-form">
+                <input type="hidden" id="edit-task-id">
+                
+                <div class="form-group">
+                    <label for="edit-task-title">Task Title</label>
+                    <input type="text" id="edit-task-title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-task-description">Description</label>
+                    <textarea id="edit-task-description" rows="4"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-task-priority">Priority</label>
+                        <select id="edit-task-priority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-task-category">Category</label>
+                        <select id="edit-task-category">
+                            <option value="work">Work</option>
+                            <option value="personal">Personal</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="health">Health</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-task-deadline">Deadline</label>
+                    <input type="date" id="edit-task-deadline">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
